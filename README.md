@@ -5,8 +5,10 @@ Public Homebrew distribution for the private `apineed-glm-claudecode` project.
 ## Install
 
 ```sh
-brew install haisonghuang/tap/apineed-glm-claudecode
+brew tap haisonghuang/tap && brew install apineed-glm-claudecode
 ```
+
+Homebrew 6 requires first-time users to explicitly trust a third-party tap. The command above performs that one-time step and installs the formula in one line.
 
 After installation, start Claude Code in the current directory with:
 
