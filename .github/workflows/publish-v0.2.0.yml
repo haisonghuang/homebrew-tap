@@ -1,0 +1,38 @@
+name: Publish v0.2.0
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - .release/v0.2.0.trigger
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Reassemble release archives
+        shell: bash
+        run: |
+          mkdir -p dist
+          cat .release/v0.2.0/aarch64/*.part | base64 --decode > dist/apineed-glm-claudecode-v0.2.0-aarch64-apple-darwin.tar.gz
+          cat .release/v0.2.0/x86_64/*.part | base64 --decode > dist/apineed-glm-claudecode-v0.2.0-x86_64-apple-darwin.tar.gz
+          echo "c2674ff8fb87dfae950b0b41e1330cb91faa6214ef39f5708c4a9e52d983e0c9  dist/apineed-glm-claudecode-v0.2.0-aarch64-apple-darwin.tar.gz" | sha256sum --check
+          echo "a797dfa8a91fb254f1b5fe1f35f0b676bbb586d86102fd7cd7a40159ea2d28ac  dist/apineed-glm-claudecode-v0.2.0-x86_64-apple-darwin.tar.gz" | sha256sum --check
+      - name: Publish GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v0.2.0
+          name: apineed-glm-claudecode v0.2.0
+          body: |
+            Cross-platform setup update for apineed-glm-claudecode.
+
+            - Two-step first launch: API Need key, then model selection
+            - Editable default model: glm-5.2
+            - English-only command-line messages
+            - macOS Apple Silicon and Intel binaries
+          files: dist/*
