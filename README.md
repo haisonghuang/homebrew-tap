@@ -16,7 +16,7 @@ After installation, start Claude Code in the current directory with:
 glm-code
 ```
 
-On first launch, enter your API Need key when prompted. The key is stored locally in `~/.config/glm-code/config.json` with file permissions `0600`.
+On first launch, enter your API Need key, then confirm or edit the prefilled `glm-5.2` model name. The configuration is stored locally in `~/.config/glm-code/config.json` with file permissions `0600`.
 
 ## Commands
 
@@ -30,6 +30,7 @@ glm-code model glm-5.2
 ## Upgrade
 
 ```sh
+brew update
 brew upgrade apineed-glm-claudecode
 ```
 
